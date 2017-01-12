@@ -59,51 +59,56 @@
 
   <script>
 
+  // set width and height dimensions of the chart	  
   var margin = {top: 20, right: 50, bottom: 50, left: 50},
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
-
+  // set the ranges
   var x = d3.scale.ordinal()
       .rangeRoundBands([margin.left, width],0.5);
-
   var y = d3.scale.linear()
       .rangeRound([height,margin.top]);
 
+  // define x-axis	  
   var xAxis = d3.svg.axis()
       .scale(x)
       .orient("bottom");
 
-  var colorRange = d3.scale.ordinal()
-    .range(["#1f77b4","#ff7f0e"]);
-
+  // define y-axis	  
   var yAxis = d3.svg.axis()
       .scale(y)
       .orient("left");
+	  
+  // create color category for the chart
+  var colorRange = d3.scale.ordinal()
+    .range(["#2ca02c","#d62728"]);
 
+  // append svg element to the page
   var svg = d3.select("#chart1").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
+  // read csv file and apply data to the chart
   d3.csv("titanic_passenger_class.csv", function(data) {
-      var status = ["Survivor", "Non-Survivor"];
+      var status = ["Survival_Rate", "Non-Survival_Rate"];
 
-      var count_layers = d3.layout.stack()(status.map(function(temp) {
+      var rate_layers = d3.layout.stack()(status.map(function(temp) {
           return data.map(function(d) {
               return {x : d.Passenger_Class,
                   y : +d[temp] };
           });
       }));
 
-      x.domain(count_layers[0].map(function(d) { return d.x; }));
-      y.domain([0, d3.max(count_layers[count_layers.length - 1], function(d) {
-          return d.y0 + d.y; })]).nice();
-
+      // select the range of the data 
+      x.domain(rate_layers[0].map(function(d) { return d.x; }));
+      y.domain([0, 1]);
+	  
+      // create layers in the stacked bar chart
       var layer= svg.selectAll(".layer")
-              .data(count_layers)
+              .data(rate_layers)
               .enter()
               .append("g")
               .attr("class", "layer")
@@ -126,7 +131,7 @@
                   tooltip.select("text").text("Count: "+d.y);})
               .on("mouseout", function() { tooltip.style("display", "none");});
 
-
+      // add x-axis and label
       svg.append("g")
               .attr("class", "axis axis--x")
               .call(xAxis)
@@ -137,7 +142,7 @@
               .style("font-size",20)
               .text("Cabin Class");
 
-
+      // add y-axis and label
       svg.append("g")
               .attr("class", "axis axis--y")
               .attr("transform","translate("+margin.left+","+0+")")
@@ -146,8 +151,9 @@
               .attr("text-anchor","end")
               .attr("transform","translate("+(-margin.left)+","+(height/2-margin.bottom)+")rotate(-90)")
               .style("font-size",20)
-              .text("Number of Passengers");
-
+              .text("Ratio of Passengers");
+	  
+      // define tooltip
       var tooltip = svg.append("g")
               .attr("class", "tooltip")
               .style("display", "none");
@@ -165,13 +171,15 @@
               .attr("font-size", "12px")
               .attr("font-weight", "bold");
 
+      // add title for the chart	  
       var h2 = svg.append("text")
-              .text("Number of Survivors by Passenger Class")
+              .text("Survival Rate by Passenger Class")
               .attr("text-anchor","middle")
               .attr("transform","translate("+(width+margin.left)/2+","+0+")")
               .attr("class","header")
               .attr("font-size",25);
 
+      // add legend to the chart	  
       var legend = svg.selectAll(".legend")
               .data(colorRange.domain().slice().reverse())
               .enter()
@@ -193,7 +201,7 @@
               .attr("dy", ".35em")
               .style("text-anchor", "end")
               .text(function(d, i) { switch (i) {
-                  case 0: return "Non-Survivor";
+                  case 0: return "Casualty";
                   case 1: return "Survivor"; }});
   });
 
@@ -217,7 +225,7 @@
       .orient("bottom");
 
   var colorRange2 = d3.scale.ordinal()
-    .range(["#bcbd22","#7f7f7f"]);
+    .range(["#52a552","#d85d5d"]);
 
   var yAxis = d3.svg.axis()
       .scale(y)
@@ -231,7 +239,7 @@
 
 
   d3.csv("titanic_age_group.csv", function(data) {
-      var status = ["Survivor", "Non-Survivor"];
+      var status = ["Survival_Rate", "Non-Survival Rate"];
 
       var rate_layers = d3.layout.stack()(status.map(function(temp) {
           return data.map(function(d) {
@@ -241,7 +249,7 @@
       }));
 
       x.domain(rate_layers[0].map(function(d) { return d.x; }));
-      y.domain([0, 450]);
+      y.domain([0, 1]);
 
       var layer= svg2.selectAll(".layer")
               .data(rate_layers)
@@ -287,7 +295,7 @@
               .attr("text-anchor","end")
               .attr("transform","translate("+(-margin.left)+","+(height/2-margin.bottom)+")rotate(-90)")
               .style("font-size",20)
-              .text("Number of Passengers");
+              .text("Ratio of Passengers");
 
       var tooltip = svg2.append("g")
               .attr("class", "tooltip")
@@ -307,7 +315,7 @@
               .attr("font-weight", "bold");
 
       var h2 = svg2.append("text")
-              .text("Number of Survivors by Age Group")
+              .text("Survival Rate by Age Group")
               .attr("text-anchor","middle")
               .attr("transform","translate("+(width+margin.left)/2+","+0+")")
               .attr("class","header")
@@ -334,7 +342,7 @@
               .attr("dy", ".35em")
               .style("text-anchor", "end")
               .text(function(d, i) { switch (i) {
-                  case 0: return "Non-Survivor";
+                  case 0: return "Casualty";
                   case 1: return "Survivor"; }});
   });
 
@@ -353,13 +361,13 @@
           .rangeRound([height,margin.top]);
 
   var ColorRange3 = d3.scale.ordinal()
-          .range(["#3182bd","#d62728"]);
+          .range(["#2ca02c","#d62728"]);
 
   var ColorRange4 = d3.scale.ordinal()
-          .range(["#6baed6", "#f7b6d2"]);
+          .range(["#98df8a", "#f7b6d2"]);
 
   var legend_color = d3.scale.ordinal()
-          .range(["#3182bd","#d62728","#6baed6", "#f7b6d2"]);
+          .range(["#2ca02c","#d62728","#98df8a", "#f7b6d2"]);
 
   var xAxis = d3.svg.axis()
           .scale(x)
@@ -377,8 +385,8 @@
       .attr("transform", "translate("+margin.left+","+20+")");
 
   d3.csv("titanic_gender_pclass.csv", function(data) {
-      var male_status = ["Male_Survivor", "Male_Non-Survivor"];
-      var female_status = ["Female_Survivor", "Female_Non-Survivor"];
+      var male_status = ["Male_Survival_Rate", "Male_Non-Survival_Rate"];
+      var female_status = ["Female_Survival_Rate", "Female_Non-Survival_Rate"];
       var layers = d3.layout.stack()(female_status.map(function(c) {
           return data.map(function(d) {
               return {
@@ -467,7 +475,7 @@
               .text("Number of Passengers");
 
       var h2 = svg3.append("text")
-              .text("Number of Survivors by Passenger Class and Gender")
+              .text("Survival Rate by Passenger Class and Gender")
               .attr("text-anchor","middle")
               .attr("transform","translate("+(width+margin.left)/2+","+0+")")
               .attr("class","header")
@@ -493,9 +501,9 @@
               .style("text-anchor", "end")
               .text(function(d, i) { switch (i) {
                   case 0: return "Female Survivor";
-                  case 1: return "Female Non-Survivor";
+                  case 1: return "Female Casualty";
                   case 2: return "Male Survivor";
-                  case 3: return "Male Non-Survivor";}});
+                  case 3: return "Male Casualty";}});
 
       var tooltip = svg3.append("g")
               .attr("class", "tooltip")
