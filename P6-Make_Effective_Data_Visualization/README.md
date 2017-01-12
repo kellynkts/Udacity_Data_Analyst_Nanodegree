@@ -1,6 +1,6 @@
 #P6: Make Effective Data Visualization
 *Submission By: Kellyn Khoo*  
-*Submission Date: January 13th, 2017*  
+*Submission Date: January 12th, 2017*  
 *Submission Purpose: Part-Evaluation for Udacity Data Analyst Nanodegree*  
 
 ###1. Summary 
@@ -36,7 +36,7 @@ I gathered feedback from 3 different people, where I referred to Udacity questio
 ####Feedback #3 - from my supervisor:
 > To show survival rate, you should first calculate the ratio of "Survivors" vs. "Non-Survivors". By showing the number of passengers who survived and did not survived is meaningless. For example, in the second chart, you mentioned that age group < 18 has the highest survival rate, but this is not clearly shown. From my perspective, it looks like age group 25-59 has the highest survival rate, since it has the highest number of survivors.  
 
-[Final Visualization]()
+[Final Visualization](https://bl.ocks.org/kellynkts/raw/f594dc4340abb08c821fa5bc0a9a560c/)
 
 ###4. Resources  
 
