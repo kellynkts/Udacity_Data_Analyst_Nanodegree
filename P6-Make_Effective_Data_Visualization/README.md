@@ -1,6 +1,6 @@
 #P6: Make Effective Data Visualization
 *Submission By: Kellyn Khoo*  
-*Submission Date: January 14th, 2017*  
+*Submission Date: January 13th, 2017*  
 *Submission Purpose: Part-Evaluation for Udacity Data Analyst Nanodegree*  
 
 ###1. Summary 
@@ -21,7 +21,7 @@ I have created three data visualization for my analysis:
 * Prior to feedbacks, data on y-axis is represented by number of passengers. Post feedbacks, I have improved my analysis by using ratios.
 * For chart legend, I have placed this on the top right corner of each chart.  
 
-[Initial Visulation](https://bl.ocks.org/kellynkts/raw/5b6a8852c02947eb71efe895a258bee3/)
+[Initial Visualization](https://bl.ocks.org/kellynkts/raw/5b6a8852c02947eb71efe895a258bee3/)
 
 ###3. Feedback  
 
@@ -36,7 +36,7 @@ I gathered feedback from 3 different people, where I referred to Udacity questio
 ####Feedback #3 - from my supervisor:
 > To show survival rate, you should first calculate the ratio of "Survivors" vs. "Non-Survivors". By showing the number of passengers who survived and did not survived is meaningless. For example, in the second chart, you mentioned that age group < 18 has the highest survival rate, but this is not clearly shown. From my perspective, it looks like age group 25-59 has the highest survival rate, since it has the highest number of survivors.  
 
-[Final Visulation]()
+[Final Visualization]()
 
 ###4. Resources  
 
