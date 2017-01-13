@@ -1,0 +1,723 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Titanic Data Visualization</title>
+    <style>
+        .axis line,
+        .axis path {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+            stroke-width: 2
+        }
+        body {
+            position: relative;
+            margin: auto 15%;
+            font: 12px sans-serif;
+            padding: 50px;	
+        }
+        header {
+            margin-left: 235px;
+        }
+        .note {
+            width:900px;
+            margin-top: 10px;
+            margin-left: 70px;
+            margin-bottom: 60px;
+        }
+    </style>
+  </head>
+
+<body>
+
+  <script src="//d3js.org/d3.v3.min.js"></script>
+
+
+  <header>
+  <h1 style="font-size:200%;">Survival Rate in Titanic's Disaster</h1>
+</header>
+
+
+<p style="font-size:120%;">The sinking of the RMS Titanic in April 1912 is one of the deadliest peacetime maritime disasters in history, where from the estimated 2,224 passengers onboard, more than 1,500 died when the RMS Titanic struck an iceberg and sank in the North Atlantic Ocean.</p> 
+
+<p style="font-size:120%;">To study the survival rate in the Titanic's disaster, I have referred to the provided data file, where information such as passenger class, name, gender and age was collected from a sample of 891 passengers.</p> 
+
+<p style="font-size:120%;">My first experience with this disaster is from the movie "Titanic" that was released in 1997, where I learnt that survival priority is according to passenger class, children and women. Hence, I expect that my analysis below should support my prior knowledge.</p>
+<br>
+<br>
+<h3 style="font-size:160%;">Chart 1 - Does passenger class affects chance of survival?</h3>
+<br>
+
+	<div id="chart1"></div>
+      <div class="note">
+
+	<style>
+	table, th, td {
+	    border: 1px solid black;
+	    border-collapse: collapse;
+	}
+	th, td {
+	    padding: 5px;
+	}
+	th {
+	    text-align: left;
+	}
+	</style>
+	<table style="width:100%">
+	  <tr>
+	    <th>Passenger Class</th>
+	    <th>Number of Passengers</th> 
+	  </tr>
+	  <tr>
+	    <td>First</td>
+	    <td>216</td>
+	  </tr>
+	  <tr>
+	    <td>Second</td>
+	    <td>184</td>
+	  </tr>
+	  <tr>
+	    <td>Third</td>
+	    <td>491</td>
+	  </tr>
+	  <tr>
+	    <td>Total</td>
+	    <td>891</td>
+	  </tr>
+	</table>
+
+        <h3 style="font-size:120%;">Observation 1: From the above chart, noted that first class passengers have the highest survival rate (63%). 
+	Unfortunately, we have many casualties from the third class, with the biggest sample size 491, but lowest survival rate of 24%.</h3>
+
+      </div>
+
+
+<h3 style="font-size:160%;">Chart 2 - Does age group affects chance of survival?</h3>
+	<div id="chart2"></div>
+      <div class="note">
+
+	<style>
+	table, th, td {
+	    border: 1px solid black;
+	    border-collapse: collapse;
+	}
+	th, td {
+	    padding: 5px;
+	}
+	th {
+	    text-align: left;
+	}
+	</style>
+	<table style="width:100%">
+	  <tr>
+	    <th>Age Group</th>
+	    <th>Number of Passengers</th> 
+	  </tr>
+	  <tr>
+	    <td>Children < 18</td>
+	    <td>113</td>
+	  </tr>
+	  <tr>
+	    <td>Young Adults 18-24</td>
+	    <td>165</td>
+	  </tr>
+	  <tr>
+	    <td>Adults 25-59</td>
+	    <td>410</td>
+	  </tr>
+	  <tr>
+	    <td>Senior Citizens >= 60</td>
+	    <td>26</td>
+	  </tr>
+	  <tr>
+	    <td>Unknown N/A</td>
+	    <td>177</td>
+	  </tr>
+	  <tr>
+	    <td>Total</td>
+	    <td>891</td>
+	  </tr>
+	</table>
+
+        <h3 style="font-size:120%;">Observation 2: From the above chart, noted that children (age group < 18) have the highest survival rate (54%).</h3>
+
+      </div>
+
+
+<h3 style="font-size:160%;">Chart 3 - Does gender affects chance of survival?</h3>
+	<div id="chart3"></div>
+      <div class="note">
+
+	<style>
+	table, th, td {
+	    border: 1px solid black;
+	    border-collapse: collapse;
+	}
+	th, td {
+	    padding: 5px;
+	}
+	th {
+	    text-align: left;
+	}
+	</style>
+	<table style="width:100%">
+	  <tr>
+	    <th>PassengerClass</th>
+	    <th>Gender</th>
+	    <th>Number of Passengers</th> 
+	  </tr>
+	  <tr>
+	    <td>First</td>
+	    <td>Female</td>
+	    <td>94</td>
+	  </tr>
+	  <tr>
+	    <td>First</td>
+	    <td>Male</td>
+	    <td>122</td>
+	  </tr>
+	  <tr>
+	    <td>Second</td>
+	    <td>Female</td>
+	    <td>76</td>
+	  </tr>
+	  <tr>
+	    <td>Second</td>
+	    <td>Male</td>
+	    <td>108</td>
+	  </tr>
+	  <tr>
+	    <td>Third</td>
+	    <td>Female</td>
+	    <td>144</td>
+	  </tr>
+	  <tr>
+	    <td>Third</td>
+	    <td>Male</td>
+	    <td>347</td>
+	  </tr>
+	  <tr>
+	    <td>Total</td>
+	    <td>Female</td>
+	    <td>314</td>
+	  </tr>
+	  <tr>
+	    <td>Total</td>
+	    <td>Male</td>
+	    <td>577</td>
+	  </tr>
+	</table>
+
+        <h3 style="font-size:120%;">Observation 3: From the above chart, noted that female passengers have higher survival rate across all passenger classes.
+	However, female passengers who were from upper passenger class have better survival rate.</h3>
+      </div>
+
+<h3 style="font-size:160%;">Conclusion:<h3>
+<p style="font-size:120%;">The above analysis supported my prior knowledge that three factors affected a passenger's survival onboard Titanic i.e. passenger class, age and gender.</p>
+
+
+
+  <script>
+
+  // Chart 1
+
+  // set width and height dimensions of the chart	  
+  var margin = {top: 20, right: 50, bottom: 50, left: 50},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+  // set the ranges
+  var x = d3.scale.ordinal()
+      .rangeRoundBands([margin.left, width],0.5);
+  var y = d3.scale.linear()
+      .rangeRound([height,margin.top]);
+
+  // define x-axis	  
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+  // define y-axis	  
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+	  
+  // create color category for the chart
+  var colorRange = d3.scale.ordinal()
+    .range(["#2ca02c","#d62728"]);
+
+  // append svg element to the page
+  var svg = d3.select("#chart1").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // read csv file and apply data to the chart
+  d3.csv("titanic_passenger_class.csv", function(data) {
+      var status = ["Survival_Rate", "Non-Survival_Rate"];
+
+      var rate_layers = d3.layout.stack()(status.map(function(temp) {
+          return data.map(function(d) {
+              return {x : d.Passenger_Class,
+                  y : +d[temp] };
+          });
+      }));
+
+      // select the range of the data 
+      x.domain(rate_layers[0].map(function(d) { return d.x; }));
+      y.domain([0, 100]);
+	  
+      // create layers in the stacked bar chart
+      var layer= svg.selectAll(".layer")
+              .data(rate_layers)
+              .enter()
+              .append("g")
+              .attr("class", "layer")
+              .style("fill", function(d, i) { return colorRange(i); });
+
+      var rect = layer.selectAll("rect")
+              .data(function(d) { return d;})
+              .enter()
+              .append("rect")
+              .attr("x", function(d) { return x(d.x); })
+              .attr("y", function(d) { return y(d.y + d.y0); })
+              .attr("height", function(d) { return y(d.y0) - y(d.y + d.y0); })
+              .attr("width", x.rangeBand())
+              .on("mouseover", function() { tooltip.style("display", null);})
+              .on("mousemove", function(d) {
+                  var xPosition = d3.mouse(this)[0] - 15;
+                  var yPosition = d3.mouse(this)[1] - 25;
+                  tooltip.attr("transform", "translate(" + xPosition + "," +
+                      yPosition + ")");
+                  tool_text = "Survival Rate (%):" +d.y;
+		  tooltip.select("text").html(tool_text);})
+              .on("mouseout", function() { tooltip.style("display", "none");});
+
+      // add x-axis and label
+      svg.append("g")
+              .attr("class", "axis axis--x")
+              .call(xAxis)
+              .attr("transform", "translate(0," + height + ")")
+              .append("text")
+              .attr("text-anchor","middle")
+              .attr("transform","translate("+(width/2)+","+margin.bottom+")")
+              .style("font-size",20)
+              .text("Passenger Class");
+
+      // add y-axis and label
+      svg.append("g")
+              .attr("class", "axis axis--y")
+              .attr("transform","translate("+margin.left+","+0+")")
+              .call(yAxis)
+              .append("text")
+              .attr("text-anchor","end")
+              .attr("transform","translate("+(-margin.left)+","+(height/2-margin.bottom)+")rotate(-90)")
+              .style("font-size",20)
+              .text("Survival Rate");
+	  
+      // define tooltip
+      var tooltip = svg.append("g")
+              .attr("class", "tooltip")
+              .style("display", "none");
+
+      tooltip.append("rect")
+              .attr("width", 65)
+              .attr("height", 20)
+              .attr("fill", "transparent")
+              .style("opacity", 0.5);
+
+      tooltip.append("text")
+              .attr("x", 30)
+              .attr("dy", "1.2em")
+              .style("text-anchor", "middle")
+              .attr("font-size", "12px")
+              .attr("font-weight", "bold");
+
+      // add title to the chart	  
+      var h2 = svg.append("text")
+              .text("Survival Rate by Passenger Class")
+              .attr("text-anchor","middle")
+              .attr("transform","translate("+(width+margin.left)/2+","+0+")")
+              .attr("class","header")
+              .attr("font-size",25);
+
+      // add legend to the chart	  
+      var legend = svg.selectAll(".legend")
+              .data(colorRange.domain().slice().reverse())
+              .enter()
+              .append("g")
+              .attr("class", "legend")
+              .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+
+      legend.append("rect")
+              .attr("x", width - 18)
+              .attr("width", 18)
+              .attr("height", 18)
+              .style("fill", colorRange)
+
+
+      legend.append("text")
+              .attr("x", width - 20)
+              .attr("y", 9)
+              .attr("dy", ".35em")
+              .style("text-anchor", "end")
+              .text(function(d, i) { switch (i) {
+                  case 0: return "Casualty";
+                  case 1: return "Survivor"; }});
+  });
+
+
+
+  // Chart 2
+
+  // set width and height dimensions of the chart
+  var margin = {top: 20, right: 50, bottom: 50, left: 50},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+  // set the ranges
+  var x = d3.scale.ordinal()
+      .rangeRoundBands([margin.left, width],0.5);
+  var y = d3.scale.linear()
+      .rangeRound([height,margin.top]);
+
+  // define x-axis
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+  // define y-axis
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+
+  // create color category for the chart
+  var colorRange2 = d3.scale.ordinal()
+    .range(["#52a552","#d85d5d"]);
+
+
+  // append svg element to the page
+  var svg2 = d3.select("#chart2").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+  // read csv file and apply data to the chart
+  d3.csv("titanic_age_group.csv", function(data) {
+      var status = ["Survival_Rate", "Non-Survival Rate"];
+
+      var rate_layers = d3.layout.stack()(status.map(function(temp) {
+          return data.map(function(d) {
+              return {x : d.Age_Group,
+                  y : +d[temp] };
+          });
+      }));
+
+      // select the range of the data 
+      x.domain(rate_layers[0].map(function(d) { return d.x; }));
+      y.domain([0, 100]);
+
+      // create layers in the stacked bar chart
+      var layer= svg2.selectAll(".layer")
+              .data(rate_layers)
+              .enter()
+              .append("g")
+              .attr("class", "layer")
+              .style("fill", function(d, i) { return colorRange2(i); });
+
+      var rect = layer.selectAll("rect")
+              .data(function(d) { return d;})
+              .enter()
+              .append("rect")
+              .attr("x", function(d) { return x(d.x); })
+              .attr("y", function(d) { return y(d.y + d.y0); })
+              .attr("height", function(d) { return y(d.y0) - y(d.y + d.y0); })
+              .attr("width", x.rangeBand())
+              .on("mouseover", function() { tooltip.style("display", null);})
+              .on("mousemove", function(d) {
+                  var xPosition = d3.mouse(this)[0] - 15;
+                  var yPosition = d3.mouse(this)[1] - 25;
+                  tooltip.attr("transform", "translate(" + xPosition + "," +
+                      yPosition + ")");
+                  tool_text = "Survival Rate (%):" +d.y;
+		  tooltip.select("text").html(tool_text);})
+              .on("mouseout", function() { tooltip.style("display", "none");});
+
+      // add x-axis and label
+      svg2.append("g")
+              .attr("class", "axis axis--x")
+              .call(xAxis)
+              .attr("transform", "translate(0," + height + ")")
+              .append("text")
+              .attr("text-anchor","middle")
+              .attr("transform","translate("+(width/2)+","+margin.bottom+")")
+              .style("font-size",20)
+              .text("Age Group");
+
+      // add y-axis and label
+      svg2.append("g")
+              .attr("class", "axis axis--y")
+              .attr("transform","translate("+margin.left+","+0+")")
+              .call(yAxis)
+              .append("text")
+              .attr("text-anchor","end")
+              .attr("transform","translate("+(-margin.left)+","+(height/2-margin.bottom)+")rotate(-90)")
+              .style("font-size",20)
+              .text("Survival Rate");
+
+      // define tooltip
+      var tooltip = svg2.append("g")
+              .attr("class", "tooltip")
+              .style("display", "none");
+
+      tooltip.append("rect")
+              .attr("width", 65)
+              .attr("height", 20)
+              .attr("fill", "transparent")
+              .style("opacity", 0.5);
+
+      tooltip.append("text")
+              .attr("x", 30)
+              .attr("dy", "1.2em")
+              .style("text-anchor", "middle")
+              .attr("font-size", "12px")
+              .attr("font-weight", "bold");
+
+      // add title to the chart
+      var h2 = svg2.append("text")
+              .text("Survival Rate by Age Group")
+              .attr("text-anchor","middle")
+              .attr("transform","translate("+(width+margin.left)/2+","+0+")")
+              .attr("class","header")
+              .attr("font-size",25);
+
+      // add legend to the chart
+      var legend = svg2.selectAll(".legend")
+              .data(colorRange2.domain().slice().reverse())
+              .enter()
+              .append("g")
+              .attr("class", "legend")
+              .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+
+      legend.append("rect")
+              .attr("x", width - 18)
+              .attr("width", 18)
+              .attr("height", 18)
+              .style("fill", colorRange2)
+
+
+      legend.append("text")
+              .attr("x", width - 20)
+              .attr("y", 9)
+              .attr("dy", ".35em")
+              .style("text-anchor", "end")
+              .text(function(d, i) { switch (i) {
+                  case 0: return "Casualty";
+                  case 1: return "Survivor"; }});
+  });
+
+
+
+  // Chart 3
+
+  // set width and height dimensions of the chart
+  var margin = {top: 50, right: 50, bottom: 50, left: 50},
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+  // set the ranges
+  var x = d3.scale.ordinal()
+          .rangeRoundBands([margin.left, width],0.65);
+  var y = d3.scale.linear()
+          .rangeRound([height,margin.top]);
+
+  // create color category for the chart and legend
+  var ColorRange3 = d3.scale.ordinal()
+          .range(["#2ca02c","#d62728"]);
+
+  var ColorRange4 = d3.scale.ordinal()
+          .range(["#98df8a", "#f7b6d2"]);
+
+  var legend_color = d3.scale.ordinal()
+          .range(["#2ca02c","#d62728","#98df8a", "#f7b6d2"]);
+
+  // define x-axis
+  var xAxis = d3.svg.axis()
+          .scale(x)
+          .orient("bottom");
+
+  // define y-axis
+  var yAxis = d3.svg.axis()
+          .scale(y)
+          .orient("left");
+
+
+  // append svg element to the page
+  var svg3 = d3.select("#chart3").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate("+margin.left+","+20+")");
+
+  // read csv file and apply data to the chart
+  d3.csv("titanic_gender_pclass.csv", function(data) {
+      var male_status = ["Male_Survival_Rate", "Male_Non-Survival_Rate"];
+      var female_status = ["Female_Survival_Rate", "Female_Non-Survival_Rate"];
+      var layers = d3.layout.stack()(female_status.map(function(c) {
+          return data.map(function(d) {
+              return {
+                  x : d.Passenger_Class,
+                  y : +d[c],
+                  status : c
+              };
+          });
+      }));
+      var layers2 = d3.layout.stack()(male_status.map(function(c) {
+          return data.map(function(d) {
+              return {
+                  x : d.Passenger_Class,
+                  y : +d[c],
+                  status : c
+              };
+          });
+      }));
+
+      // select the range of the data 
+      x.domain(layers[0].map(function(d) { return d.x; }));
+      y.domain([0, d3.max(layers2[layers2.length - 1], function(d) { return d.y0 + d.y; })]).nice();
+
+      // create layers in the stacked bar chart
+      var layer = svg3.selectAll(".layer")
+              .data(layers)
+              .enter()
+              .append("g")
+              .attr("class", "layer")
+              .style("fill", function(d, i) { return ColorRange3(i); });
+      var layer2 = svg3.selectAll(".layer2")
+              .data(layers2)
+              .enter()
+              .append("g")
+              .attr("class", "layer2")
+              .style("fill", function(d, i) { return ColorRange4(i); });
+      var rect =  layer.selectAll(".female_rect")
+              .data(function(d) { return d;})
+              .enter()
+              .append("rect")
+              .attr("class","female_rect")
+              .attr("x", function(d) { return (x(d.x)-x.rangeBand()/2);})
+              .attr("y", function(d) { return y(d.y + d.y0);})
+              .attr("height", function(d) { return y(d.y0) - y(d.y + d.y0);})
+              .attr("width", x.rangeBand())
+              .on("mouseover", function() { tooltip.style("display", null);})
+              .on("mousemove", function(d) {
+                  var xPosition = d3.mouse(this)[0] - 15;
+                  var yPosition = d3.mouse(this)[1] - 25;
+                  tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+                  tool_text = "Survival Rate (%):" +d.y;
+		  tooltip.select("text").html(tool_text);})
+              .on("mouseout", function() { tooltip.style("display", "none");})
+
+      var rect2 =  layer2.selectAll(".male_rect")
+              .data(function(d) { return d;})
+              .enter()
+              .append("rect")
+              .attr("class","male_rect")
+              .attr("x", function(d) { return x(d.x)+x.rangeBand()/2;})
+              .attr("y", function(d) { return y(d.y + d.y0);})
+              .attr("height", function(d) { return y(d.y0) - y(d.y + d.y0);})
+              .attr("width", x.rangeBand())
+              .on("mouseover", function() { tooltip.style("display", null);})
+              .on("mousemove", function(d) {
+                  var xPosition = d3.mouse(this)[0] - 15;
+                  var yPosition = d3.mouse(this)[1] - 25;
+                  tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+                  tool_text = "Survival Rate (%):" +d.y;
+		  tooltip.select("text").html(tool_text);})
+              .on("mouseout", function() { tooltip.style("display", "none");})
+
+      // add x-axis and label
+      svg3.append("g")
+              .attr("class", "axis axis--x")
+              .attr("transform", "translate(0," + height + ")")
+              .call(xAxis)
+              .append("text")
+              .attr("text-anchor","middle")
+              .attr("transform","translate("+width/2+","+margin.bottom+")")
+              .style("font-size",20)
+              .text("Passenger Class");
+
+      // add y-axis and label
+      svg3.append("g")
+              .attr("class", "axis axis--y")
+              .attr("transform","translate("+margin.left+","+0+")")
+              .call(yAxis)
+              .append("text")
+              .attr("text-anchor","end")
+              .attr("transform","translate("+(-margin.left)+","+(height/2-margin.bottom)+")rotate(-90)")
+              .style("font-size",20)
+              .text("Survival Rate");
+
+      // add title to the chart
+      var h2 = svg3.append("text")
+              .text("Survival Rate by Passenger Class and Gender")
+              .attr("text-anchor","middle")
+              .attr("transform","translate("+(width+margin.left)/2+","+0+")")
+              .attr("class","header")
+              .attr("font-size",25);
+
+      // add legend to the chart
+      var legend = svg3.selectAll(".legend")
+              .data([0,1,2,3])
+              .enter()
+              .append("g")
+              .attr("class", "legend")
+              .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+      legend.append("rect")
+              .attr("x", width)
+              .attr("width", 25)
+              .attr("height", 18)
+              .style("fill", function(d, i) { return legend_color(i);});
+
+      legend.append("text")
+              .attr("x", width - 5)
+              .attr("y", 9)
+              .attr("dy", ".35em")
+              .style("text-anchor", "end")
+              .text(function(d, i) { switch (i) {
+                  case 0: return "Female Survivor";
+                  case 1: return "Female Casualty";
+                  case 2: return "Male Survivor";
+                  case 3: return "Male Casualty";}});
+
+      // define tooltip
+      var tooltip = svg3.append("g")
+              .attr("class", "tooltip")
+              .style("display", "none");
+
+      tooltip.append("rect")
+              .attr("width", 65)
+              .attr("height", 20)
+              .attr("fill", "transparent")
+              .style("opacity", 0.5);
+
+      tooltip.append("text")
+              .attr("x", 30)
+              .attr("dy", "1.2em")
+              .style("text-anchor", "middle")
+              .attr("font-size", "12px")
+              .attr("font-weight", "bold");
+  });
+
+
+
+  </script>
+
+</body>
+
+</html>
