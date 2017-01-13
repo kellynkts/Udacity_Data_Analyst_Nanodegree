@@ -9,10 +9,20 @@ The objective of this project is to select a dataset and create an explanatory d
 
 I have chosen one of the beginner dataset i.e. "Titanic". Variables available for data analysis include passenger class, name, gender, age, number of siblings/spouses aboard, number of parents/children aboard, ticket number, passenger fare, cabin, port of embarkation and survival indicator.  
 
-I have created three data visualization for my analysis:  
-(a) Survival Rate by Passenger Class  
-(b) Survival Rate by Age Group  
-(c) Survival Rate by Passenger Class and Gender  
+*Background*
+The sinking of the RMS Titanic in April 1912 is one of the deadliest peacetime maritime disasters in history. From the estimated 2,224 passengers onboard, more than 1,500 died when the RMS Titanic struck an iceberg and sank in the North Atlantic Ocean.
+
+*Purpose of Analysis*
+To study the survival rate in the Titanic's disaster, I have referred to the provided data file, where information was collected from a sample of 891 passengers.Information available include passenger class, name, gender, age, number of siblings/spouses aboard, number of parents/children aboard, ticket number, passenger fare, cabin, port of embarkation and survival indicator.
+
+My first experience with this disaster is from the movie "Titanic" that was released in 1997. From the movie, I learnt that survival priority is given to passenger class, children and women.Hence, I expect that my analysis should support my prior knowledge:
+
+Chart 1 - To ascertain my prior knowledge that first class passengers have better chance of survival
+Chart 2 - To ascertain my prior knowledge that children passengers have better chance of survival
+Chart 3 - To ascertain my prior knowledge that female passengers have better chance of survival
+
+*Conclusion*
+From the three charts created, I could conclude that indeed a passenger's survival onboard Titanic is affected by three factors i.e. passenger class, age and gender.
 
 ###2. Design  
 
