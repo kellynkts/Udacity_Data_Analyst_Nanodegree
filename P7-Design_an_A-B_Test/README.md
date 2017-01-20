@@ -63,7 +63,7 @@ stddev = sqrt(0.53 * (1-0.53) / 82.5) = 0.0549
 
 > #### For each of your evaluation metrics, indicate whether you think the analytic estimate would be comparable to the the empirical variability, or whether you expect them to be different.  
 
-For **Gross conversion** and **Net conversion**, their denominators are number of cookies (unique cookies that click the "start free trial"), which is also unit of diversion, so their analytic variance are likely to match their empirical variance. For **retention**, its denominator is **number of enrollments**, which is not the unit of diversion in the experiment, so its empirical variance might be much higher than analytic variance.
+For **Gross conversion** and **Net conversion**, their denominators are number of cookies (unique cookies that click the "start free trial"), which is also unit of diversion, so their analytic variance are likely to match their empirical variance. For **Retention**, its denominator is **number of enrollments**, which is not the unit of diversion in the experiment, so its empirical variance might be much higher than analytic variance.
 
 ### Sizing
 #### Number of Samples vs. Power
