@@ -88,7 +88,30 @@ Using the [calculator](http://www.evanmiller.org/ab-testing/sample-size.html) re
 * **Net conversion:** 27,413 clicks for each group
 
 Hence, the number of pageviews required are:
-* **Gross conversion:** 25,835 x 40000 / 3200 = 322,937.5 pageviews for each group
-* **Retention:** 39,115 x 40000 x 660 = 237,0606 pageviews for each group
-* **Net conversion:** 27,413 x 40000 / 3200 = 342,662.5 pageviews for each group
+* **Gross conversion:** 25,835 x 40,000 / 3,200 = 322,937.5 pageviews for each group
+* **Retention:** 39,115 x 40,000 x 660 = 2,370,606 pageviews for each group
+* **Net conversion:** 27,413 x 40,000 / 3,200 = 342,662.5 pageviews for each group
 
+*where:   
+40,000 = number of unique cookies to view page per day  
+3,200 = number of unique cookies to click "Start free trial" per day  
+660 = number of enrollments per day*  
+
+In view that the pageviews required for evaluation metric **Retention** is huge, I will no longer consider this metric for my further analysis. Hence, based on **Gross conversion** and **Net conversion**, I would require 342,662.5 x 2 = 685,325 pageviews to power this experiment.
+
+#### Duration vs. Exposure
+
+> #### Indicate what fraction of traffic you would divert to this experiment and, given this, how many days you would need to run the experiment.  
+
+The calculations below consider that 100% of the daily traffic of 40,000 is diverted to the experiment. Based on the evalution metric **Gross conversion** and **Net conversion**:
+
+* Number of pageviews: 685,325
+* Duration of Experiment = 685,325 / 40,000 = 17.1 days 
+
+An experiment that spans for 17 days seems adequate. 
+
+## Experiment Analysis
+
+### Sanity Checks
+
+> #### For each of your invariant metrics, give the 95% confidence interval for the value you expect to observe, the actual observed value, and whether the metric passes your sanity check.
