@@ -33,9 +33,9 @@ I would launch the experiment only when the number of enrollments are reduced bu
 To evaluate whether the analytical estimates of standard deviation are accurate and match empirical standard deviation, the unit of analysis and unit of diversion are compared for each evaluation metric. Assuming Bernoulli distribution with probability `p` and population `N`, the standard deviation `stddev` is given by `sqrt(p*(1-p)/N)`.
 
 ```
-Pageviews = 5000
+Pageviews = 5,000
 N = Pageviews * Click-through-probability on "Start free trial"
-  = 5000 * 0.08
+  = 5,000 * 0.08
   = 400
 ```
 
@@ -115,3 +115,151 @@ An experiment that spans for 17 days seems adequate.
 ### Sanity Checks
 
 > #### For each of your invariant metrics, give the 95% confidence interval for the value you expect to observe, the actual observed value, and whether the metric passes your sanity check.
+
+| Metrics                    | Lower bound  | Upper bound | Observed | Sanity check |
+| ----------------------------- |:--------:| :-----------: | :-------: | :----------: |
+| Number of cookies       		  | 0.4988   | 0.5012   | 0.5006 | Yes |
+| Number of clicks             | 0.4959   | 0.5041   | 0.5005 | Yes |  
+| Click-through-probability     | 0.0812   | 0.0830   | 0.0822 | Yes |
+
+##### **Number of cookies**
+
+```
+Control group: number of pageviews = 345,543
+Experiment group: number of pageviews = 344,660
+stddev = sqrt(0.5 x 0.5 / (345,543 + 344,660)) = 0.000602
+m, margin of error = stddev x 1.96 = 0.00118 ;  where the z-score for alpha 0.05 is 1.96
+cinterval = (0.5 - 0.00118, 0.5 + 0.00118) = (0.4988, 0.5012)
+p = 345,543 / (345,543 + 344,660) = 0.5006
+
+As the observed value, p, is within the confidence interval, cinterval, hence it passed the sanity check.
+```
+##### **Number of clicks:**
+
+```
+Control group: number of clicks = 28,378
+Experiment group: number of clicks = 28,325
+stddev = sqrt(0.5 x 0.5 / (28,378 + 28,325)) = 0.0021
+m, margin of error = stddev x 1.96 = 0.004116 ;  where the z-score for alpha 0.05 is 1.96
+cinterval = (0.5 - 0.004116, 0.5 + 0.004116) = (0.4959, 0.5041)
+p = 28,378 / (28,378 + 28,325) = 0.5005
+
+As the observed value, p, is within the confidence interval, cinterval, hence it passed the sanity check.
+```
+##### **Click-through-probability:**
+
+```
+Control group: click-through-probability = 28,378 / 345,543 = 0.0821
+Experiment group: click-through-probability = 28,325 / 344,660 = 0.0822
+stddev = sqrt(0.0821 x (1-0.0821) / 345,543) = 0.0005
+m, margin of error = stddev x 1.96 = 0.0009 ;  where the z-score for alpha 0.05 is 1.96
+cinterval = (0.0821 - 0.0009, 0.0821 + 0.0009) = (0.0812, 0.0830)
+p = 28,325 / 344,660 = 0.0822
+
+As the observed value, p, is within the confidence interval, cinterval, hence it passed the sanity check.
+```
+
+### Result Analysis
+
+#### Effect Size Tests
+
+> #### For each of your evaluation metrics, give a 95% confidence interval around the difference between the experiment and control groups. Indicate whether each metric is statistically and practically significant.
+
+| Metrics                    | Lower bound  | Upper bound | Statistically significant | Practically significant|
+| ----------------------------- |:--------:| :-----------: | :-------: | :----------: |
+| Gross conversion       		  | -0.0291   | -0.0120   | Yes | Yes |
+| Net conversion            | -0.0116   | 0.0019   | No | No |  
+
+##### **Gross conversion:**
+
+```
+Control group: number of enrollment = 3,785
+Control group: number of clicks = 17,293
+Experiment group: number of enrollment = 3,423
+Experiment group: number of clicks = 17,260
+
+p = (3,423 + 3,785) / (17,260 + 17,293)
+  = 0.2086
+
+SE = sqrt(p x (1-p) x (1/N1 + 1/N2))
+   = sqrt(0.2086 x (1 - 0.2086) x (1/17,293 + 1/17,260))
+   = 0.00437
+
+d = (3,423 / 17,260) - (3,785 / 17,293)
+  = −0.02055
+
+m = SE * 1.96     ;  where the z-score for alpha 0.05 is 1.96
+  = 0.00857
+
+cinterval = (d - m, d + m)
+          = (−0.0291, −0.0120)
+          
+Since 0 is not within the (−0.0291, −0.0120) range, *Gross conversion* in the experiment group is both 
+statistically significant and practically significant different than *Gross conversion* in the control group.           
+```
+
+##### **Net conversion:**
+
+```
+Control group: number of payments = 2,033
+Control group: number of clicks = 17,293
+Experiment group: number of payments = 1,945
+Experiment group: number of clicks = 17,260
+
+p = (1,945 + 2,033) / (17,260 + 17,293)
+  = 0.1151
+
+SE = sqrt(p x (1-p) x (1/N1 + 1/N2))
+   = sqrt(0.1151 x (1 - 0.1151) x (1/17,293 + 1/17,260))
+   = 0.00343
+
+d = (1,945 / 17,260) - (2,033 / 17,293)
+  = = −0.00487
+
+m = SE * 1.96     ;  where the z-score for alpha 0.05 is 1.96
+  = 0.00673
+
+cinterval = (d - m, d + m)
+          = (−0.0116, 0.0019)
+          
+Since 0 is within the (−0.0116, 0.0019) range, *Net conversion* in the experiment group is neither 
+statistically significant nor practically significant different from *Net conversion* in the control group.          
+```
+
+#### Sign Tests
+
+> #### For each of your evaluation metrics, do a sign test using the day-by-day data, and report the p-value of the sign test and whether the result is statistically significant
+
+| Metrics                    | p-value | Statistically significant |
+| ----------------------------- |:--------:| :-----------: | :-------: | :----------: |
+| Gross conversion       		  |  0.0026   | Yes |
+| Net conversion            |  0.6776   | No  | 
+
+The results are according to the following [calculator](http://graphpad.com/quickcalcs/binomial1.cfm).
+
+##### **Gross conversion:**
+```
+Number of “successes” you observed = 4
+Number of trials or experiments = 23
+Probability = 0.5
+
+The two-tailed p-value is 0.0026. As p-value 0.0026 < alpha 0.05, the *Gross conversion*
+in the experiment group is significantly lesser than the control group.
+```
+
+##### **Net conversion:**
+```
+Number of “successes” you observed = 10
+Number of trials or experiments = 23
+Probability = 0.5
+
+The two-tailed p value is 0.6776. As p-value 0.6776 > alpha 0.05, the *Net conversion*
+in the experiment group is not significantly different than the control group.
+```
+
+#### Summary
+
+> #### State whether you used the Bonferroni correction, and explain why or why not. If there are any discrepancies between the effect size hypothesis tests and the sign tests, describe the discrepancy and why you think it arose.
+
+I did not use Bonferroni correction because I wanted **Gross conversion** to significantly decrease whilst **Net conversion** to not significantly decrease. For both effect size tests and sign tests, the **Gross conversion** in the experiment group is significantly lesser than the control group, whilst **Net conversion** in both control and experiment groups are not significantly different.
+
