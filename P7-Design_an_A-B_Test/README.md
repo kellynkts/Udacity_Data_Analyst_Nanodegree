@@ -263,3 +263,24 @@ in the experiment group is not significantly different than the control group.
 
 I did not use Bonferroni correction because I wanted **Gross conversion** to significantly decrease whilst **Net conversion** to not significantly decrease. For both effect size tests and sign tests, the **Gross conversion** in the experiment group is significantly lesser than the control group, whilst **Net conversion** in both control and experiment groups are not significantly different.
 
+### Recommendation
+
+The experiment significantly decreases **Gross conversion** but do not significantly decrease **Net conversion** i.e. a trial screener could significantly reduce non-paid enrollments, but not significantly reduce paid enrollments. However, the confidence interval for **Net conversion** includes negative numbers hence, there is a risk that the introduction of the trial screener may lead to a decrease in revenue. Thus, I do not recommend to launch this experiment.
+
+## Follow-Up Experiment
+
+> #### Give a high-level description of the follow up experiment you would run, what your hypothesis would be, what metrics you would want to measure, what your unit of diversion would be, and your reasoning for these choices.
+
+From my experience as a first-time Udacity student, the obvious gap between physical classroom learnings and online learnings is the lack of real-time support. Students can easily walk to their lecturers' room for real-time, face-to-face interactions. However, for online programs, students may email or post questions in forums and thereafter wait for responses, which may be delayed especially if there are time-zone differences. Hence, I suggest Udacity to consider setting up real-time support during the 14 days trial period i.e. send alerts to the students' respective facilitator that the student is currently online, hence the facilitator can be on standby for real-time interaction thru a chatbox.
+
+My **null hypothesis** is that setting up real-time support for new trial signups will not increase **Net conversion** by a practically significant amount.
+
+New free trial signups will randomly be assigned to a Control and an Experiment group. The experience for users in the Control group will remain unchanged. Users in the Experiment group will be assigned a random member of the Udacity team and receive real-time onboarding message thru a chatbox.
+
+The **unit of diversion** will be the **user-id**, as this change only impacts what happens after a free trial account is created.
+
+The **invariant metric** is **Number of user-ids**, because users signed up for free trials even before they are assigned a point of contact and are exposed to the new onboarding messages.
+
+The **evaluation metric** is **Net conversion**, whether real-time support helps increase the ratio of users who make payment over those who decided only to try the program.
+
+If the **Net conversion** is positive and practically significant at the end of the experiment, then we can implement real-time support to all Udacity's nanodegree programs.
