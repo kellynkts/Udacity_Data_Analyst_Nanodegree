@@ -89,7 +89,7 @@ Using the [calculator](http://www.evanmiller.org/ab-testing/sample-size.html) re
 
 Hence, the number of pageviews required are:
 * **Gross conversion:** 25,835 x 40,000 / 3,200 = 322,937.5 pageviews for each group
-* **Retention:** 39,115 x 40,000 x 660 = 2,370,606 pageviews for each group
+* **Retention:** 39,115 x 40,000 / 660 = 2,370,606 pageviews for each group
 * **Net conversion:** 27,413 x 40,000 / 3,200 = 342,662.5 pageviews for each group
 
 *where:   
