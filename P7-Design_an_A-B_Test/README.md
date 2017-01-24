@@ -109,7 +109,7 @@ The calculations below consider that 100% of the daily traffic of 40,000 is dive
 * Number of pageviews needed: 685,325
 * Duration of Experiment = 685,325 / 40,000 = 17.1 days
 
-From the above, noted that the duration of experiment is 17.1 days, which we would need to round-up to 18 days. If we round-down to 17 days, then we might not achieve the number of pageviews required. In conclusion, an experiment that requires 18 days seems satisfactory.
+From the above, noted that the duration of experiment is 17.1 days, which we would need to round-up to 18 days. If we round-down to 17 days, then we might not achieve the number of pageviews required. In conclusion, an experiment that requires 18 days would be deemed satisfactory.
 
 ## Experiment Analysis
 
