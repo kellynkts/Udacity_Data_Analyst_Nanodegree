@@ -30,14 +30,14 @@ In the experiment, a "minimum 5-hour per week" screener is introduced with the o
 ### Measuring Standard Deviation
 > #### List the standard deviation of each of your evaluation metrics.  
 
-As provided by [Wikipedia](https://en.wikipedia.org/wiki/Binomial_distribution), in probability theory and statistics, the Binomial distribution with parameters n and p is the discrete probability distribution of the number of successes in a sequence of n independent yes/no experiments, each of which yields success with probability p. A success/failure experiment is also called a Bernoulli experiment or Bernoulli trial; when n = 1, the binomial distribution is a Bernoulli distribution. The binomial distribution is the basis for the popular binomial test of statistical significance.
+As provided by [Wikipedia](https://en.wikipedia.org/wiki/Binomial_distribution), "in probability theory and statistics, the Binomial distribution with parameters n and p is the discrete probability distribution of the number of successes in a sequence of n independent yes/no experiments, each of which yields success with probability p. A success/failure experiment is also called a Bernoulli experiment or Bernoulli trial; when n = 1, the binomial distribution is a Bernoulli distribution. The binomial distribution is the basis for the popular binomial test of statistical significance."
 
 In this experiment, our evaluation metrics **Gross conversion**, **Retention** and **Net conversion** are measures of probability to succeed, hence we can assume Bernoulli distribution with probability `p` and population `N`, where the standard deviation `stddev` is given as `sqrt(p*(1-p)/N)`:
 
-| Metrics               | N  | p | stddev |
-| --------------------- |:--------:| :-----------: | :-------: |
-| Gross conversion      | 400   | 0.20625   | 0.0202 |
-| Retention             | 82.5   | 0.53   | 0.0549 |
+| Metrics               | N     | p          | stddev |
+| --------------------- |:-----:| :--------: | :----: |
+| Gross conversion      | 400   | 0.20625    | 0.0202 |
+| Retention             | 82.5  | 0.53       | 0.0549 |
 | Net conversion        | 400   | 0.1093125  | 0.0156 |
 
 ```
@@ -61,52 +61,55 @@ stddev for Net conversion = sqrt(0.1093125 * (1-0.1093125) / 400) = 0.0156
 
 > #### For each of your evaluation metrics, indicate whether you think the analytic estimate would be comparable to the the empirical variability, or whether you expect them to be different.  
 
-For **Gross conversion** and **Net conversion**, their denominators are number of cookies (unique cookies that click the "start free trial"), which is also unit of diversion, so their analytic variance are likely to match their empirical variance. For **Retention**, its denominator is **number of enrollments**, which is not the unit of diversion in the experiment, so its empirical variance might be much higher than analytic variance.
+* For **Gross conversion**, the unit of analysis is the visitor who clicked the "start free trial" button, whilst the unit of diversion is the corresponding cookie. Generally, both of these are highly correlated unless the same visitor used different devices to visit the page. Hence, the analytic estimate for **Gross conversion** is likely to match its empirical variability.
+
+* For **Retention**, the unit of analysis is the visitor who enrolled in the free 14-day trial, whilst the unit of diversion is the corresponding user-id. However, the **Number of user-ids** is not a unit of diversion in this experiment. Hence, the analytic estimate for **Retention** is likely to be different to its empirical variability.
+
+* For **Net conversion**, this is similar to **Gross conversion** i.e. the unit of analysis is the visitor who clicked the "start free trial" button, whilst the unit of diversion is the corresponding cookie. Hence, the analytic estimate for **Net conversion** is likely to match its empirical variability.
+
 
 ### Sizing
 #### Number of Samples vs. Power
 
 > #### Indicate whether you will use the Bonferroni correction during your analysis phase.  
 
-I did not use the Bonferroni correction because I wanted **Gross conversion** to significantly decrease and **Net conversion** to not significantly decrease. Bonferroni correction is suitable when we are dealing with an *or* case but not suitable when use in an *and* case. For this experiment, we have an *and* case for our metrics because we are more concerned with false negatives than false positives (i.e. Bonferroni correction controls for false positives). Furthermore, the use of the Bonfferoni reduces statistical power (i.e. we might miss differences that actually exist).
+As provided by [Wikipedia](https://en.wikipedia.org/wiki/Bonferroni_correction), "... the Bonferroni correction can be conservative if there are a large number of tests and/or the test statistics are positively correlated."
+
+In order to launch this experiment, I would require the evaluation metric **Gross conversion** to have a statistically significant decrease but not the evaluation metrics **Retention** and **Net conversion** i.e. test statistics are **not** positively correlated. So, I decided not to use the Bonferroni correction for my analysis as it would be too conservative.
 
 > #### Give the number of pageviews you will need to power your experiment appropriately.  
 
-alpha = 0.05; beta = 0.20
+Based on the [online calculator](http://www.evanmiller.org/ab-testing/sample-size.html) introduced in the classroom, the number of pageviews required for my experiment with alpha = 0.05 and beta = 0.20:
 
-* **Gross conversion:** base conversion rate = 0.20625, dmin = 1%,
-* **Retention:** base conversion rate = 0.53, dmin = 1%,
-* **Net conversion:** base conversion rate = 0.1093125, dmin = 0.75%,
+| Metrics             | Baseline Conversion Rate  | Minimum Detectable Effect | Sample Size Needed | Number of Pageviews Needed|
+| ------------------- |:-------------------------:| :-----------------------: | :----------------: | :-----------------------: |
+| Gross conversion    | 20.625%    | 1%    | 25,835 per group  | 322,937.5 per group  |
+| Retention           | 53%        | 1%    | 39,115 per group  | 2,370,606 per group  |  
+| Net conversion      | 10.93125%  | 0.75% | 27,413 per group  | 342,662.5 per group  | 
 
-where dmin is the minimum Detectable Effect.
+```
+where:
+Number of unique cookies to view page per day = 40,000
+Number of unique cookies to click "start free trial" per day = 3,200
+Number of enrollments per day = 660
 
-Using the [calculator](http://www.evanmiller.org/ab-testing/sample-size.html) referred in the classes, the number of samples:
-* **Gross conversion:** 25,835 clicks for each group
-* **Retention:** 39,115 enrollments for each group
-* **Net conversion:** 27,413 clicks for each group
-
-Hence, the number of pageviews required are:
-* **Gross conversion:** 25,835 x 40,000 / 3,200 = 322,937.5 pageviews for each group
-* **Retention:** 39,115 x 40,000 / 660 = 2,370,606 pageviews for each group
-* **Net conversion:** 27,413 x 40,000 / 3,200 = 342,662.5 pageviews for each group
-
-*where:   
-40,000 = number of unique cookies to view page per day  
-3,200 = number of unique cookies to click "Start free trial" per day  
-660 = number of enrollments per day*  
-
-In view that the pageviews required for evaluation metric **Retention** is huge, I will no longer consider this metric for my further analysis. Hence, based on **Gross conversion** and **Net conversion**, I would require 342,662.5 x 2 = 685,325 pageviews to power this experiment.
+hence:
+Number of pageviews needed for Gross conversion = 25,835 x 40,000 / 3,200 = 322,937.5 pageviews for each group
+Number of pageviews needed for Retention = 39,115 x 40,000 / 660 = 2,370,606 pageviews for each group
+Number of pageviews needed for Net conversion = 27,413 x 40,000 / 3,200 = 342,662.5 pageviews for each group
+```
+In view that the pageviews required for evaluation metric **Retention** is huge, I will no longer consider this metric for my further analysis. Hence, based on the evaluation metrics **Gross conversion** and **Net conversion**, I would require 342,662.5 x 2 = 685,325 pageviews to power this experiment.
 
 #### Duration vs. Exposure
 
 > #### Indicate what fraction of traffic you would divert to this experiment and, given this, how many days you would need to run the experiment.  
 
-The calculations below consider that 100% of the daily traffic of 40,000 is diverted to the experiment. Based on the evalution metric **Gross conversion** and **Net conversion**:
+The calculations below consider that 100% of the daily traffic of 40,000 is diverted to the experiment. Based on the evalution metrics **Gross conversion** and **Net conversion**:
 
-* Number of pageviews: 685,325
-* Duration of Experiment = 685,325 / 40,000 = 17.1 days 
+* Number of pageviews needed: 685,325
+* Duration of Experiment = 685,325 / 40,000 = 17.1 days
 
-An experiment that spans for 17 days seems adequate. 
+From the above, noted that the duration of experiment is 17.1 days, which we would need to round-up to 18 days. If we round-down to 17 days, then we might not achieve the number of pageviews required. In conclusion, an experiment that requires 18 days seems satisfactory.
 
 ## Experiment Analysis
 
@@ -114,11 +117,11 @@ An experiment that spans for 17 days seems adequate.
 
 > #### For each of your invariant metrics, give the 95% confidence interval for the value you expect to observe, the actual observed value, and whether the metric passes your sanity check.
 
-| Metrics                    | Lower bound  | Upper bound | Observed | Sanity check |
-| ----------------------------- |:--------:| :-----------: | :-------: | :----------: |
-| Number of cookies       		  | 0.4988   | 0.5012   | 0.5006 | Yes |
-| Number of clicks             | 0.4959   | 0.5041   | 0.5005 | Yes |  
-| Click-through-probability     | 0.0812   | 0.0830   | 0.0822 | Yes |
+| Metrics                     | Lower bound  | Upper bound   | Observed | Sanity check |
+| --------------------------- |:------------:| :-----------: | :------: | :----------: |
+| Number of cookies       		| 0.4988    | 0.5012   | 0.5006 | Yes |
+| Number of clicks            | 0.4959    | 0.5041   | 0.5005 | Yes |  
+| Click-through-probability   | 0.0812    | 0.0830   | 0.0822 | Yes |
 
 ##### **Number of cookies**
 
@@ -163,10 +166,10 @@ As the observed value, p, is within the confidence interval, cinterval, hence it
 
 > #### For each of your evaluation metrics, give a 95% confidence interval around the difference between the experiment and control groups. Indicate whether each metric is statistically and practically significant.
 
-| Metrics                    | Lower bound  | Upper bound | Statistically significant | Practically significant|
-| ----------------------------- |:--------:| :-----------: | :-------: | :----------: |
-| Gross conversion       		  | -0.0291   | -0.0120   | Yes | Yes |
-| Net conversion            | -0.0116   | 0.0019   | No | No |  
+| Metrics                   | Lower bound  | Upper bound | Statistically significant | Practically significant|
+| --------------------------|:------------:| :---------: | :-----------------------: | :--------------------: |
+| Gross conversion       		| -0.0291   | -0.0120  | Yes  | Yes |
+| Net conversion            | -0.0116   | 0.0019   | No   | No  |  
 
 ##### **Gross conversion:**
 
@@ -228,10 +231,10 @@ statistically significant nor practically significant different from *Net conver
 
 > #### For each of your evaluation metrics, do a sign test using the day-by-day data, and report the p-value of the sign test and whether the result is statistically significant
 
-| Metrics                    | p-value | Statistically significant |
-| ----------------------------- |:--------:| :-----------: | :-------: | :----------: |
-| Gross conversion       		  |  0.0026   | Yes |
-| Net conversion            |  0.6776   | No  | 
+| Metrics                 | p-value  | Statistically significant |
+| ----------------------- |:--------:| :-----------------------: |
+| Gross conversion    	  |  0.0026  | Yes |
+| Net conversion          |  0.6776  | No  | 
 
 The results are according to the following [calculator](http://graphpad.com/quickcalcs/binomial1.cfm).
 
