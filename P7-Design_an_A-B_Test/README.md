@@ -30,35 +30,33 @@ In the experiment, a "minimum 5-hour per week" screener is introduced with the o
 ### Measuring Standard Deviation
 > #### List the standard deviation of each of your evaluation metrics.  
 
-To evaluate whether the analytical estimates of standard deviation are accurate and match empirical standard deviation, the unit of analysis and unit of diversion are compared for each evaluation metric. Assuming Bernoulli distribution with probability `p` and population `N`, the standard deviation `stddev` is given by `sqrt(p*(1-p)/N)`.
+As provided by [Wikipedia](https://en.wikipedia.org/wiki/Binomial_distribution), in probability theory and statistics, the Binomial distribution with parameters n and p is the discrete probability distribution of the number of successes in a sequence of n independent yes/no experiments, each of which yields success with probability p. A success/failure experiment is also called a Bernoulli experiment or Bernoulli trial; when n = 1, the binomial distribution is a Bernoulli distribution. The binomial distribution is the basis for the popular binomial test of statistical significance.
+
+In this experiment, our evaluation metrics **Gross conversion**, **Retention** and **Net conversion** are measures of probability to succeed, hence we can assume Bernoulli distribution with probability `p` and population `N`, where the standard deviation `stddev` is given as `sqrt(p*(1-p)/N)`:
+
+| Metrics               | N  | p | stddev |
+| --------------------- |:--------:| :-----------: | :-------: |
+| Gross conversion      | 400   | 0.20625   | 0.0202 |
+| Retention             | 82.5   | 0.53   | 0.0549 |
+| Net conversion        | 400   | 0.1093125  | 0.0156 |
 
 ```
-Pageviews = 5,000
-N = Pageviews * Click-through-probability on "Start free trial"
-  = 5,000 * 0.08
-  = 400
-```
+where:
+Sample size of pageviews = 5,000
+Click-through-probability on "Start free trial" = 0.08
+Probability of enrolling, given click = 0.20625
+Probability of payment, given enroll = 0.53
+Probability of payment, given click = 0.1093125
 
-#### Gross conversion
+hence:
+N for Gross conversion = 5,000 x 0.08 = 400
+N for Retention = 5,000 x 0.08 x 0.20625 = 82.5
+N for Net conversion = 5,000 x 0.08 = 400
 
-```
-p = Probability of enrolling, given click = 0.20625
-stddev = sqrt(0.20625 * (1-0.20625) / 400) = 0.0202
-```
-
-#### Net conversion
-```
-p = Probability of payment, given click = 0.1093125
-stddev = sqrt(0.1093125 * (1-0.1093125) / 400) = 0.0156
-```
-
-#### Retention
-```
-p = Probability of payment, given enroll = 0.53
-number of enrollment = N * Probability of enrolling, given click
-                     = 400 × 0.20625 
-                     = 82.5
-stddev = sqrt(0.53 * (1-0.53) / 82.5) = 0.0549
+and:
+stddev for Gross conversion = sqrt(0.20625 * (1-0.20625) / 400) = 0.0202
+stddev for Retention = sqrt(0.53 * (1-0.53) / 82.5) = 0.0549
+stddev for Net conversion = sqrt(0.1093125 * (1-0.1093125) / 400) = 0.0156
 ```
 
 > #### For each of your evaluation metrics, indicate whether you think the analytic estimate would be comparable to the the empirical variability, or whether you expect them to be different.  
