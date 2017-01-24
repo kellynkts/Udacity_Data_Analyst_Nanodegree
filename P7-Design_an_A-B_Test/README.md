@@ -34,7 +34,7 @@ As provided by [Wikipedia](https://en.wikipedia.org/wiki/Binomial_distribution),
 
 In this experiment, our evaluation metrics **Gross conversion**, **Retention** and **Net conversion** are measures of probability to succeed, hence we can assume Bernoulli distribution with probability `p` and population `N`, where the standard deviation `stddev` is given as `sqrt(p*(1-p)/N)`:
 
-| Metrics               | N     | p          | stddev |
+| Evaluation Metrics    | N     | p          | stddev |
 | --------------------- |:-----:| :--------: | :----: |
 | Gross conversion      | 400   | 0.20625    | 0.0202 |
 | Retention             | 82.5  | 0.53       | 0.0549 |
@@ -81,7 +81,7 @@ In order to launch this experiment, I would require the evaluation metric **Gros
 
 Based on the [online calculator](http://www.evanmiller.org/ab-testing/sample-size.html) introduced in the classroom, the number of pageviews required for my experiment with alpha = 0.05 and beta = 0.20:
 
-| Metrics             | Baseline Conversion Rate  | Minimum Detectable Effect | Sample Size Needed | Number of Pageviews Needed|
+| Evaluation Metrics  | Baseline Conversion Rate  | Minimum Detectable Effect | Sample Size Needed | Number of Pageviews Needed|
 | ------------------- |:-------------------------:| :-----------------------: | :----------------: | :-----------------------: |
 | Gross conversion    | 20.625%    | 1%    | 25,835 per group  | 322,937.5 per group  |
 | Retention           | 53%        | 1%    | 39,115 per group  | 2,370,606 per group  |  
@@ -117,8 +117,8 @@ From the above, noted that the duration of experiment is 17.1 days, which we wou
 
 > #### For each of your invariant metrics, give the 95% confidence interval for the value you expect to observe, the actual observed value, and whether the metric passes your sanity check.
 
-| Metrics                     | Lower bound  | Upper bound   | Observed | Sanity check |
-| --------------------------- |:------------:| :-----------: | :------: | :----------: |
+| Invariant Metrics           | Lower 95% CI bound  | Upper 95% CI bound   | Observed Value | Sanity Check |
+| --------------------------- |:-------------------:| :------------------: | :------------: | :----------: |
 | Number of cookies       		| 0.4988    | 0.5012   | 0.5006 | Yes |
 | Number of clicks            | 0.4959    | 0.5041   | 0.5005 | Yes |  
 | Click-through-probability   | 0.0812    | 0.0830   | 0.0822 | Yes |
@@ -166,8 +166,8 @@ As the observed value, p, is within the confidence interval, cinterval, hence it
 
 > #### For each of your evaluation metrics, give a 95% confidence interval around the difference between the experiment and control groups. Indicate whether each metric is statistically and practically significant.
 
-| Metrics                   | Lower bound  | Upper bound | Statistically significant | Practically significant|
-| --------------------------|:------------:| :---------: | :-----------------------: | :--------------------: |
+| Evaluation Metrics        | Lower 95% CI Bound  | Upper 95% CI Bound | Statistically Significant? | Practically Significant?|
+| --------------------------|:-------------------:| :----------------: | :------------------------: | :---------------------: |
 | Gross conversion       		| -0.0291   | -0.0120  | Yes  | Yes |
 | Net conversion            | -0.0116   | 0.0019   | No   | No  |  
 
@@ -231,8 +231,8 @@ statistically significant nor practically significant different from *Net conver
 
 > #### For each of your evaluation metrics, do a sign test using the day-by-day data, and report the p-value of the sign test and whether the result is statistically significant
 
-| Metrics                 | p-value  | Statistically significant |
-| ----------------------- |:--------:| :-----------------------: |
+| Evaluation Metrics      | p-value  | Statistically Significant? |
+| ----------------------- |:--------:| :------------------------: |
 | Gross conversion    	  |  0.0026  | Yes |
 | Net conversion          |  0.6776  | No  | 
 
