@@ -1,6 +1,6 @@
 #P7: Design an A/B Test
 *Submission By: Kellyn Khoo*  
-*Submission Date: January 20th, 2017*  
+*Submission Date: January 24th, 2017*  
 *Submission Purpose: Part-Evaluation for Udacity Data Analyst Nanodegree*  
 
 ## Experiment Overview: Free Trial Screener
@@ -17,15 +17,15 @@ In the experiment, Udacity tested a change where if the student clicked "start f
 
 > #### For each metric, explain both why you did or did not use it as an invariant metric and why you did or did not use it as an evaluation metric. Also, state what results you will look for in your evaluation metrics in order to launch the experiment.
 
-* **Number of cookies**: *An ideal invariant metric as the cookies load before users see the experiment page.*
-* **Number of user-ids**: *Not a good invariant metric because the number of users who enrolled in the free trial is dependent on the experiment. Also, not a good evaluation metric because the number of visitors may be different between the control and experiment groups.*
-* **Number of clicks**: *An ideal invariant metric because the clicks happened before the users see the experiment page, and are thus independent of both control and experiment groups.*
-* **Click-through-probability**: *Also a good invariant metric because the clicks happened before the users see the experiment page, and are thus independent of both control and experiment groups.*
-* **Gross conversion**: *Not a good invariant metric because users who indicate that they will not be able to work more than 5 hours per week, they are suggested not to enroll. Gross conversion is about probability to succeed, and it is a suitable evaluation metric because it is directly dependent on the effect of the experiment.*
-* **Retention**: *Not a suitable invariant metric because the number of users who enroll in the free trial is dependent on the experiment. Suitable evaluation metric because it is directly dependent on the effect of the experiment.*
-* **Net conversion**: *Not a suitable invariant metric because the number of users who enroll in the free trial is dependent on the experiment. Suitable evaluation metric because it is directly dependent on the effect of the experiment.*
+* **Number of cookies**: *An ideal invariant metric as the cookies load before visitors see the experiment page, hence number of visitors should not vary between control and experiment groups.*
+* **Number of user-ids**: *Not a good invariant metric because the number of visitors who enrolled in the free trial is dependent on the experiment. Also, not a good evaluation metric because the number of visitors may be different between the control and experiment groups.*
+* **Number of clicks**: *Similar to **Number of cookies**, this is an ideal invariant metric because the clicks happened before visitors see the experiment page, and are thus independent of both control and experiment groups.*
+* **Click-through-probability**: *Similar to **Number of cookies** and **Number of clicks**, this is an ideal invariant metric because the clicks happened before visitors see the experiment page, and are thus independent of both control and experiment groups.*
+* **Gross conversion**: *Not a good invariant metric because the number of visitors who enrolled in the free trial is dependent on the experiment i.e. visitors who cannot agree to the "at least 5-hours per week" recommendation are suggested not to enroll. But it is a good evalution metric since it is dependent on the results of the experiment.*
+* **Retention**: *Not a good invariant metric because the probability of payment after completing the 14-day free trial among number of user-ids who completed check-out is affected by the experiment. But it is a good evaluation metric since it is dependent on the results of the experiment.*   
+* **Net conversion**: *Not a good invariant metric because the probability of payment after completing the 14-day free trial among number of unique cookies to click the "start free trial" button is affected by the experiment. But it is a good evaluation metric since it is dependent on the results of the experiment.*  
 
-I would launch the experiment only when the number of enrollments are reduced but number of payments do not reduce. In other words, I require **Gross conversion** to have a statistically significant decrease, and **Net conversion** to statistically remain the same (or increase).
+In the experiment, a "minimum 5-hour per week" screener is introduced with the objective to reduce non-committed enrollments i.e. reduce the number of non-payments after completing the 14-day free trial. Hence, in order to launch this experiment, I would require the evaluation metric **Gross conversion** to have a statistically significant decrease but not the evaluation metrics **Retention** and **Net conversion**. 
 
 ### Measuring Standard Deviation
 > #### List the standard deviation of each of your evaluation metrics.  
