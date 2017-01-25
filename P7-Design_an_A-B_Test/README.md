@@ -1,6 +1,6 @@
 #P7: Design an A/B Test
 *Submission By: Kellyn Khoo*  
-*Submission Date: January 24th, 2017*  
+*Submission Date: January 25th, 2017*  
 *Submission Purpose: Part-Evaluation for Udacity Data Analyst Nanodegree*  
 
 ## Experiment Overview: Free Trial Screener
@@ -25,7 +25,7 @@ In the experiment, Udacity tested a change where if the student clicked "start f
 * **Retention**: *Not a good invariant metric because the probability of payment after completing the 14-day free trial among number of user-ids who completed check-out is affected by the experiment. But it is a good evaluation metric since it is dependent on the results of the experiment.*   
 * **Net conversion**: *Not a good invariant metric because the probability of payment after completing the 14-day free trial among number of unique cookies to click the "start free trial" button is affected by the experiment. But it is a good evaluation metric since it is dependent on the results of the experiment.*  
 
-In the experiment, a "minimum 5-hour per week" screener is introduced with the objective to reduce non-committed enrollments i.e. reduce the number of non-payments after completing the 14-day free trial. Hence, in order to launch this experiment, I would require the evaluation metric **Gross conversion** to have a statistically significant decrease but not the evaluation metrics **Retention** and **Net conversion**. 
+In the experiment, a "minimum 5-hour per week" screener is introduced with the objective to reduce non-committed enrollments i.e. reduce the number of non-payments after completing the 14-day free trial. Hence, in order to launch this experiment, I would require the evaluation metric **Gross conversion** to have a statistically significant decrease but not the evaluation metrics **Retention** and **Net conversion** i.e. to have no significant change or an increase. 
 
 ### Measuring Standard Deviation
 > #### List the standard deviation of each of your evaluation metrics.  
@@ -262,7 +262,7 @@ in the experiment group is not significantly different than the control group.
 
 > #### State whether you used the Bonferroni correction, and explain why or why not. If there are any discrepancies between the effect size hypothesis tests and the sign tests, describe the discrepancy and why you think it arose.
 
-I did not use Bonferroni correction because I wanted **Gross conversion** to significantly decrease whilst **Net conversion** to not significantly decrease. For both effect size tests and sign tests, the **Gross conversion** in the experiment group is significantly lesser than the control group, whilst **Net conversion** in both control and experiment groups are not significantly different.
+I did not use Bonferroni correction because I wanted **Gross conversion** to significantly decrease whilst **Net conversion** to not significantly change (or increase). As mentioned earlier, since test statistics are **not** positively correlated, using the Bonferroni correction would be too conservative. Noted that for both effect size tests and sign tests, the **Gross conversion** in the experiment group is significantly lesser than the control group, whilst **Net conversion** in both control and experiment groups are not significantly different.
 
 ### Recommendation
 
