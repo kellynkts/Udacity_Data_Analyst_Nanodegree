@@ -18,7 +18,7 @@ In the experiment, Udacity tested a change where if the student clicked "start f
 > #### For each metric, explain both why you did or did not use it as an invariant metric and why you did or did not use it as an evaluation metric. Also, state what results you will look for in your evaluation metrics in order to launch the experiment.
 
 * **Number of cookies**: *An ideal invariant metric as the cookies load before visitors see the experiment page, hence number of visitors should not vary between control and experiment groups.*
-* **Number of user-ids**: *Not a good invariant metric because the number of visitors who enrolled in the free trial is dependent on the experiment. Also, not a good evaluation metric because the number of visitors may be different between the control and experiment groups.*
+* **Number of user-ids**: *Not a good invariant metric because the number of visitors who enrolled in the free trial is dependent on the experiment. Also, not a good evaluation metric since this metric does not have a denominator hence it cannot be normalized for differences that exist between control and experiment groups.*
 * **Number of clicks**: *Similar to* **Number of cookies** *, this is an ideal invariant metric because the clicks happened before visitors see the experiment page, and are thus independent of both control and experiment groups.*
 * **Click-through-probability**: *Similar to* **Number of cookies** and **Number of clicks** *, this is an ideal invariant metric because the clicks happened before visitors see the experiment page, and are thus independent of both control and experiment groups.*
 * **Gross conversion**: *Not a good invariant metric because the number of visitors who enrolled in the free trial is dependent on the experiment i.e. visitors who cannot agree to the "at least 5-hours per week" recommendation are suggested not to enroll. But it is a good evalution metric since it is dependent on the results of the experiment.*
@@ -110,6 +110,10 @@ The calculations below consider that 100% of the daily traffic of 40,000 is dive
 * Duration of Experiment = 685,325 / 40,000 = 17.1 days
 
 From the above, noted that the duration of experiment is 17.1 days, which we would need to round-up to 18 days. If we round-down to 17 days, then we might not achieve the number of pageviews required. In conclusion, an experiment that requires 18 days would be deemed satisfactory.
+
+> #### Give your reasoning for the fraction you chose to divert. How risky do you think this experiment would be for Udacity?
+
+In this experiment, potential students are screened for their level of commitment i.e. if students can devote at least 5-hours per week in their choice of course. If potential students can agree to the recommended commitment, then students proceed to check-out as normal. However, potential students who hesitate to agree to the recommended commitment are not rejected, they are instead suggested not to enroll but still able to view videos and quizzes for free, without coaching support or a verified certificate. Hence, potential students do not suffer from physical, psychological or financial harm. During check-out process, potential students are asked for their credit card information, but this is independent of our experiment. The introduction of a screener does not burden Udacity's website and genuine potential students would still continue to enroll. In fact, the screener would encourage more potential students to enroll since the recommended commitment is reasonable i.e. minimum of 5-hours per week (it would be considered demanding if the recommended commitment is minimum 5-hours per day). Hence, in view that this experiment presents a low-risk for both Udacity and its potential students, I would prefer to divert 100% of traffic and complete the experiment within 18 days. Reducing the diverted traffic would require a longer experiment duration, which may increase some risks.
 
 ## Experiment Analysis
 
@@ -262,7 +266,13 @@ in the experiment group is not significantly different than the control group.
 
 > #### State whether you used the Bonferroni correction, and explain why or why not. If there are any discrepancies between the effect size hypothesis tests and the sign tests, describe the discrepancy and why you think it arose.
 
-I did not use Bonferroni correction because I wanted **Gross conversion** to significantly decrease whilst **Net conversion** to not significantly change (or increase). As mentioned earlier, since test statistics are **not** positively correlated, using the Bonferroni correction would be too conservative. Noted that for both effect size tests and sign tests, the **Gross conversion** in the experiment group is significantly lesser than the control group, whilst **Net conversion** in both control and experiment groups are not significantly different.
+I did not use Bonferroni correction because I wanted **Gross conversion** to significantly decrease whilst **Net conversion** to not significantly change (or increase). As mentioned earlier, since test statistics are **not** positively correlated, using the Bonferroni correction would be too conservative. 
+
+Bonferroni correction would be used if it is expected that not all of the evaluation metrics would behave in the ways we expected. So, one false positive can affect our decision. In this case, the risk of type I error (i.e. when null hypothesis is true, but is rejected) would be very high and the Bonferroni correction can be used to reduce this risk by reducing alpha.
+
+However, in this experiment, it is expected that all of the evaluation metrics would behave in the ways we expected. So, one false negative can affect our decision. Hence, the risk of type II error (i.e. when null hypothesis is false, but failed to be rejected) would be very high but we do not want to reduce the alpha. So, we do not want to use the Bonferroni correction.
+
+Noted that for both effect size tests and sign tests, the **Gross conversion** in the experiment group is significantly lesser than the control group, whilst **Net conversion** in both control and experiment groups are not significantly different.
 
 ### Recommendation
 
